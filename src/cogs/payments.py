@@ -77,15 +77,17 @@ class payments(commands.Cog, name="Donations"):
                 name = str(msg.content)
                 await ctx.reply("Adding \"" + name + "\" to your file")
                 print(name)
-                await asyncio.sleep(1)
+                await asyncio.sleep(2)
                 await ctx.reply("What is your grade? (Ex freshman, sophomore)")
                 msg2 = await self.bot.wait_for("message")
                 grade = str(msg2.content.lower())
                 print(grade)
-                await ctx.reply("Adding \"" + grade + "\" to your file. You may now make a donation.")
+                await ctx.reply("Adding \"" + grade + "\" to your file.")
             finally:
                 await create_account(ctx.author, name, grade)
-                print("Connection complete.")
+                await ctx.reply("Connection complete. You are good to go!")
+        else:
+            await ctx.reply("You are already connected!")
 
 
 # Load cog
