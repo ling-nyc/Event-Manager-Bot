@@ -65,7 +65,7 @@ class payments(commands.Cog, name="Donations"):
 
     @commands.command(
         name="connect",
-        description="Register your account to prepare payments. You only need to do this once!",
+        description="Register your account to prepare payments. This is to allow us to keep track of things and manage stats.  You only need to do this once!",
     )
     @checks.not_blacklisted()
     async def connect(self, ctx: Context):
