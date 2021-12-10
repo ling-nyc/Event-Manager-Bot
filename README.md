@@ -13,7 +13,7 @@ Smugglers need their own registration, done manually, to log the amount of money
 	- Json file should add to the user dictionary the amount that they paid, who they paid to, and when.
 	
 
-2. Allow checking of money balances and stats per user
+2. Allow checking of money balances and stats per user **Currently on it -Ling**
 
 	- /check {@user} should allow people to check that user's stats, such as name, grade, money paid, etc. Smugglers need their own output. (Add something in the json to separate smugglers from users, and use if statement to verify)
 	- Users can only check their own stats, unless they are admin.
