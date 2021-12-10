@@ -4,7 +4,6 @@ from disnake.ext import commands
 from disnake.ext.commands import Context
 
 from helpers import checks
-from helpers.json_manager import load_users
 
 
 async def open_account(user):

@@ -3,7 +3,7 @@ from disnake import ApplicationCommandInteraction, Option, OptionType
 from disnake.ext import commands
 from disnake.ext.commands import Context
 
-from helpers import json_manager, checks
+from helpers import checks
 
 
 class Owner(commands.Cog, name="owner"):
