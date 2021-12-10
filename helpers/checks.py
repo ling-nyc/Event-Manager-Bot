@@ -1,5 +1,5 @@
-import json
-
+import disnake
+from .json_manager import load_blacklist, load_config
 from disnake.ext import commands
 
 from exceptions import *
@@ -7,21 +7,23 @@ from exceptions import *
 
 def is_owner():
     async def predicate(context: commands.Context) -> bool:
-        with open("config.json") as file:
-            data = json.load(file)
-        if context.author.id not in data["owners"]:
+        config = load_config()
+
+        if context.author.id not in config["owners"]:
             raise UserNotOwner
+
         return True
 
     return commands.check(predicate)
 
 
 def not_blacklisted():
-    async def predicate(context: commands.Context) -> bool:
-        with open("blacklist.json") as file:
-            data = json.load(file)
-        if context.author.id in data["ids"]:
+    async def predicate(ctx: commands.Context) -> bool:
+        blacklist = load_blacklist()
+
+        if ctx.author.id in blacklist:
             raise UserBlacklisted
+
         return True
 
     return commands.check(predicate)
