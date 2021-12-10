@@ -4,6 +4,7 @@ from disnake.ext import commands
 from disnake.ext.commands import Context
 
 from helpers import checks
+from helpers.json_manager import account_is_open, load_users
 
 
 async def open_account(user):
@@ -39,28 +40,24 @@ class stats(commands.Cog, name="Statistics"):
     )
     @checks.not_blacklisted()
     async def check(self, ctx: Context):
-        if await open_account(ctx.author) is True:  # checks if user data exists
-            await ctx.reply("Your account isn't connected yet! Use the `connect` command to register.")
-        else:
-            user = ctx.author
+        if account_is_open(ctx.author):  # checks if user data exists
             users = load_users()
-
-            name = users[user.id]["name"]
-            grade = users[user.id]["grade"]
-            paid = users[user.id]["paid"]
-            smuggler = users[user.id]["smuggler"]
+            user = users[str(ctx.author.id)]
 
             em = disnake.Embed(
                 title=f'{ctx.author.name} \'s Stats', color=disnake.Color.red())
 
-            em.add_field(name="Name", value=name)
-            em.add_field(name='Grade', value=grade.capitalize())
-            em.add_field(name='Paid', value="$"+str(paid))
-            em.add_field(name="Smuggler", value="Yes" if smuggler else "No")
+            em.add_field(name="Name", value=user["name"])
+            em.add_field(name='Grade', value=user["grade"].title())
+            em.add_field(name='Paid', value="$"+str(user["paid"]))
+            em.add_field(name="Smuggler",
+                         value="Yes" if user["smuggler"] else "No")
             await ctx.reply(embed=em)
+
+        else:
+            await ctx.reply("Your account isn't connected yet! Use the `connect` command to register.")
 
 
 # Load cog
-
 def setup(bot):
     bot.add_cog(stats(bot))
