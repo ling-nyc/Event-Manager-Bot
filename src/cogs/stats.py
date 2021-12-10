@@ -1,4 +1,3 @@
-
 import json
 import os
 import asyncio
@@ -55,7 +54,7 @@ class stats(commands.Cog, name="Statistics"):
         description="Check payment information.",
     )
     @checks.not_blacklisted()
-    async def connect(self, ctx: Context):
+    async def check(self, ctx: Context):
         if await open_account(ctx.author) is True:  # checks if user data exists
             await ctx.reply("Your account isn't connected yet! Use the `connect` command to register.")
         else:
