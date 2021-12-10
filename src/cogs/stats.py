@@ -65,12 +65,13 @@ class stats(commands.Cog, name="Statistics"):
             name = users[str(user.id)]["name"]
             grade = users[str(user.id)]["grade"]
             paid = users[str(user.id)]["paid"]
-            #smuggler = users[str(user.id)]["smuggler"]
+            smuggler = users[str(user.id)]["smuggler"]
 
             em = disnake.Embed(title=f'{ctx.author.name} \'s Stats', color=disnake.Color.red())
-            #if str(smuggler in users:
+            #if bool(smuggler) ==  True:
             #    em.add_field(name="Smuggler", value=smuggler)
-            # Ill fix the smuggler code later cant be bothered
+            #Ill fix that later too lazy
+
             em.add_field(name="Name", value=name)
             em.add_field(name='Grade', value=grade.capitalize())
             em.add_field(name='Paid', value="$"+str(paid))

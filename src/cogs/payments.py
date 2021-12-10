@@ -32,6 +32,7 @@ async def create_account(user, name, grade):
     users[str(user.id)]["grade"] = grade
     users[str(user.id)]["paid"] = 0
     users[str(user.id)]["name"] = name
+    users[str(user.id)]["smuggler"] = "False"
 
     with open('users.json', 'w') as f:
         json.dump(users, f)
