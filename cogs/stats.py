@@ -1,38 +1,23 @@
-import json
-import os
-import asyncio
-import sys
 import disnake
 from disnake import ApplicationCommandInteraction
 from disnake.ext import commands
 from disnake.ext.commands import Context
 
 from helpers import checks
-
-async def get_userinfo() -> object:
-    with open('users.json', 'r') as f:
-        users = json.load(f)
-
-    return users
+from helpers.json_manager import load_users
 
 
 async def open_account(user):
-    users = await get_userinfo()
+    users = load_users()
 
-    if str(user.id) in users:
+    if user.id in users:
         return False
     else:
         return True
 
-# Only if you want to use variables that are in the config.json file.
-if not os.path.isfile("config.json"):
-    sys.exit("'config.json' not found! Please add it and try again.")
-else:
-    with open("config.json") as file:
-        config = json.load(file)
-
-
 # Here we name the cog and create a new class for the cog.
+
+
 class stats(commands.Cog, name="Statistics"):
     def __init__(self, bot):
         self.bot = bot
@@ -59,23 +44,21 @@ class stats(commands.Cog, name="Statistics"):
             await ctx.reply("Your account isn't connected yet! Use the `connect` command to register.")
         else:
             user = ctx.author
-            users = await get_userinfo()
+            users = load_users()
 
-            name = users[str(user.id)]["name"]
-            grade = users[str(user.id)]["grade"]
-            paid = users[str(user.id)]["paid"]
-            smuggler = users[str(user.id)]["smuggler"]
+            name = users[user.id]["name"]
+            grade = users[user.id]["grade"]
+            paid = users[user.id]["paid"]
+            smuggler = users[user.id]["smuggler"]
 
-            em = disnake.Embed(title=f'{ctx.author.name} \'s Stats', color=disnake.Color.red())
-            #if bool(smuggler) ==  True:
-            #    em.add_field(name="Smuggler", value=smuggler)
-            #Ill fix that later too lazy
+            em = disnake.Embed(
+                title=f'{ctx.author.name} \'s Stats', color=disnake.Color.red())
 
             em.add_field(name="Name", value=name)
             em.add_field(name='Grade', value=grade.capitalize())
             em.add_field(name='Paid', value="$"+str(paid))
+            em.add_field(name="Smuggler", value="Yes" if smuggler else "No")
             await ctx.reply(embed=em)
-
 
 
 # Load cog

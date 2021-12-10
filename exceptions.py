@@ -1,6 +1,3 @@
-
-
-
 class UserBlacklisted(Exception):
     def __init__(self, message="User is blacklisted!"):
         self.message = message

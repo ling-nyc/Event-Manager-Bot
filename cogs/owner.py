@@ -1,21 +1,9 @@
-
-
-import json
-import os
-import sys
-
 import disnake
 from disnake import ApplicationCommandInteraction, Option, OptionType
 from disnake.ext import commands
 from disnake.ext.commands import Context
 
 from helpers import json_manager, checks
-
-if not os.path.isfile("config.json"):
-    sys.exit("'config.json' not found! Please add it and try again.")
-else:
-    with open("config.json") as file:
-        config = json.load(file)
 
 
 class Owner(commands.Cog, name="owner"):
@@ -146,8 +134,8 @@ class Owner(commands.Cog, name="owner"):
         Lets you add or remove a user from not being able to use the bot.
         """
         if context.invoked_subcommand is None:
-            with open("blacklist.json") as file:
-                blacklist = json.load(file)
+            blacklist = json_manager.load_blacklist()
+
             embed = disnake.Embed(
                 title=f"There are currently {len(blacklist['ids'])} blacklisted IDs",
                 description=f"{', '.join(str(id) for id in blacklist['ids'])}",
@@ -174,24 +162,23 @@ class Owner(commands.Cog, name="owner"):
         Lets you add a user from not being able to use the bot.
         """
         try:
-            user_id = user.id
-            with open("blacklist.json") as file:
-                blacklist = json.load(file)
-            if user_id in blacklist['ids']:
+            blacklist = json_manager.load_blacklist()
+
+            if user.id in blacklist['ids']:
                 embed = disnake.Embed(
                     title="Error!",
                     description=f"**{user.name}** is already in the blacklist.",
                     color=0xE02B2B
                 )
                 return await interaction.send(embed=embed)
-            json_manager.add_user_to_blacklist(user_id)
+            json_manager.add_user_to_blacklist(user.id)
             embed = disnake.Embed(
                 title="User Blacklisted",
                 description=f"**{user.name}** has been successfully added to the blacklist",
                 color=0x9C84EF
             )
-            with open("blacklist.json") as file:
-                blacklist = json.load(file)
+            blacklist = json_manager.load_blacklist()
+
             embed.set_footer(
                 text=f"There are now {len(blacklist['ids'])} users in the blacklist"
             )
@@ -214,8 +201,8 @@ class Owner(commands.Cog, name="owner"):
         """
         try:
             user_id = member.id
-            with open("blacklist.json") as file:
-                blacklist = json.load(file)
+            blacklist = json_manager.load_blacklist()
+
             if user_id in blacklist['ids']:
                 embed = disnake.Embed(
                     title="Error!",
@@ -229,8 +216,8 @@ class Owner(commands.Cog, name="owner"):
                 description=f"**{member.name}** has been successfully added to the blacklist",
                 color=0x9C84EF
             )
-            with open("blacklist.json") as file:
-                blacklist = json.load(file)
+            blacklist = json_manager.load_blacklist()
+
             embed.set_footer(
                 text=f"There are now {len(blacklist['ids'])} users in the blacklist"
             )
@@ -268,8 +255,8 @@ class Owner(commands.Cog, name="owner"):
                 description=f"**{user.name}** has been successfully removed from the blacklist",
                 color=0x9C84EF
             )
-            with open("blacklist.json") as file:
-                blacklist = json.load(file)
+            blacklist = json_manager.load_blacklist()
+
             embed.set_footer(
                 text=f"There are now {len(blacklist['ids'])} users in the blacklist"
             )
@@ -305,8 +292,8 @@ class Owner(commands.Cog, name="owner"):
                 description=f"**{member.name}** has been successfully removed from the blacklist",
                 color=0x9C84EF
             )
-            with open("blacklist.json") as file:
-                blacklist = json.load(file)
+            blacklist = json_manager.load_blacklist()
+
             embed.set_footer(
                 text=f"There are now {len(blacklist['ids'])} users in the blacklist"
             )

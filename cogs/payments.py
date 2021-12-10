@@ -10,8 +10,9 @@ from disnake.ext.commands import Context
 
 from helpers import checks
 
+
 async def get_userinfo():
-    with open('users.json', 'r') as f:
+    with open('users.json') as f:
         users = json.load(f)
 
     return users
@@ -20,19 +21,16 @@ async def get_userinfo():
 async def open_account(user):
     users = await get_userinfo()
 
-    if str(user.id) in users:
-        return False
-    else:
-        return True
+    return user.id in users
 
 
 async def create_account(user, name, grade):
     users = await get_userinfo()
-    users[str(user.id)] = {}
-    users[str(user.id)]["grade"] = grade
-    users[str(user.id)]["paid"] = 0
-    users[str(user.id)]["name"] = name
-    users[str(user.id)]["smuggler"] = "False"
+
+    users[user.id]["grade"] = grade
+    users[user.id]["paid"] = 0
+    users[user.id]["name"] = name
+    users[user.id]["smuggler"] = False
 
     with open('users.json', 'w') as f:
         json.dump(users, f)
