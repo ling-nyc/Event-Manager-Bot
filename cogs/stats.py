@@ -1,3 +1,5 @@
+import json
+
 import disnake
 from disnake import ApplicationCommandInteraction
 from disnake.ext import commands
@@ -56,6 +58,23 @@ class stats(commands.Cog, name="Statistics"):
 
         else:
             await ctx.reply("Your account isn't connected yet! Use the `connect` command to register.")
+
+    @commands.command(
+        name="stats",
+        description="Check payment information serverwide",
+    )
+    @checks.not_blacklisted()
+    async def stats(self, ctx: Context):
+        with open('stats.json') as file:
+            json_input = json.load(file)
+        sum = 0
+        for user in json_input['users']:
+            sum += json_input['users'][user]['paid']
+        em = disnake.Embed(
+            title="Overall Server Stats", color=disnake.Color.red())
+        em.add_field(name="Total Amount Raised", value="$" + str(sum))
+        await ctx.reply(embed=em)
+
 
 
 # Load cog

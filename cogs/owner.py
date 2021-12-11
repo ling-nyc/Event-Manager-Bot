@@ -3,7 +3,7 @@ from disnake import ApplicationCommandInteraction, Option, OptionType
 from disnake.ext import commands
 from disnake.ext.commands import Context
 
-from helpers import checks
+from helpers import checks, json_manager
 
 
 class Owner(commands.Cog, name="owner"):
@@ -77,7 +77,6 @@ class Owner(commands.Cog, name="owner"):
     @commands.slash_command(
         name="embed",
         description="The bot will say anything you want, but within embeds.",
-        guild_ids=[908500336250069002, 883540417998618644],
         options=[
             Option(
                 name="message",
