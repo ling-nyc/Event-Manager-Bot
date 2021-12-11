@@ -13,7 +13,6 @@ class Owner(commands.Cog, name="owner"):
     @commands.slash_command(
         name="shutdown",
         description="Make the bot shutdown.",
-        guild_ids=[908500336250069002, 883540417998618644]
     )
     @checks.is_owner()
     async def shutdown(self, interaction: ApplicationCommandInteraction):
@@ -46,7 +45,6 @@ class Owner(commands.Cog, name="owner"):
     @commands.slash_command(
         name="say",
         description="The bot will say anything you want.",
-        guild_ids=[908500336250069002, 883540417998618644],
         options=[
             Option(
                 name="message",
@@ -115,7 +113,6 @@ class Owner(commands.Cog, name="owner"):
     @commands.slash_command(
         name="blacklist",
         description="Get the list of all blacklisted users.",
-        guild_ids=[908500336250069002, 883540417998618644],
     )
     @checks.is_owner()
     async def blacklist(self, interaction: ApplicationCommandInteraction):
