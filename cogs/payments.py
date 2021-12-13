@@ -60,7 +60,7 @@ class payments(commands.Cog, name="Donations"):
         description="Confirm a payment.",
     )
     @checks.not_blacklisted()
-    async def pay(self, ctx, member: disnake.Member, amount):
+    async def pay(self, ctx, member: disnake.Member = None, amount):
         target = member.id
         users = await load_config()
         if await account_is_open(member):  # checks if user data exists
