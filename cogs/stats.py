@@ -41,13 +41,14 @@ class stats(commands.Cog, name="Statistics"):
         description="Check payment information.",
     )
     @checks.not_blacklisted()
-    async def check(self, ctx: Context):
-        if account_is_open(ctx.author):  # checks if user data exists
+    async def check(self, ctx: Context, member: disnake.Member):
+        target = member.id
+        if account_is_open(target):  # checks if user data exists
             users = load_users()
-            user = users[str(ctx.author.id)]
+            user = users[str(member.id)]
 
             em = disnake.Embed(
-                title=f'{ctx.author.name} \'s Stats', color=disnake.Color.red())
+                title=f'{member.name} \'s Stats', color=disnake.Color.red())
 
             em.add_field(name="Name", value=user["name"])
             em.add_field(name='Grade', value=user["grade"].title())
