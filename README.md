@@ -1,33 +1,30 @@
-# TO-DO
+## Everything is done pretty much. Theres some left though:
 
-~~User registration system (/connect) where they can input their real name and grade.~~ **DONE**
+1. Lock the $pay and $list to only people with `smuggler: "True"` in their jsons, along with server admins.
+2. Add a command to allow the editing of user info
+3. Roll into production owo
+4. (optional) add a field to $check where it displays past donations (not in the current event, Ex: They paid $15 during maid revolution, and $2 during santa, rn it will display Paid: $2 Total: $17)
 
-Smugglers need their own registration, done manually, to log the amount of money they earned.
+## Ideas for the future:
 
-1.  Allow users to request a payment deposit (/pay)
+1. Simple flask website (or any other framework) to produce an easily accesible and responsive web dashboard that shows:
+	- Total amount raised on top
+	- List of user information (requires discord OAUTH login to see)
+	- This can be expanded later on, allowing logins and having it check for smuggler role, editing data from website, etc
+	- rn we just need a basic site so people can see the json thats it **Just format the json into a quick table in plain html or something and lock the page down with a password shared with everyone, then have backend update the site every once in a while.**
+2. multi server support
+3. allow easily setting up commands
+4. this shit will never happen lmaooo
 
-	- Respond with the list of Money Smugglers, and then link them to the channel with their schedules
-	- After they pick a smuggler, have the bot dm the smuggler that the user picked with the User name and grade information.
-	- After that is done, the bot will create a new channel in the server and allow the user to speak with the smuggler and complete the deal. Add /close for convenience of ticketing.
-	**- After the transaction is done, smuggler can run /finish {user} {amount} and log to a json file. The sums will also be logged to the smuggler's account, to make money tracking simplified.** ***Needs to be done ASAP!!!***
-	- Json file should add to the user dictionary the amount that they paid, who they paid to, and when.
-	
 
-2. Allow checking of money balances and stats per user **PARTIALLY DONE, $check already exists, but someone should let it accept an arg if an admin runs it ($check @ling)**
 
-	- ~~/check {@user} should allow people to check that user's stats, such as name, grade, money paid, etc. Smugglers need their own output. (Add something in the json to separate smugglers from users, and use if statement to verify)~~ **Done (TY MUSIC DUDE) mostly but needs to accept arg**
-	- ~~Users can only check their own stats, unless they are admin.~~ **No longer needed**
-	- /stats should show serverwide statistics, such as total money raised. Anyone can use it. **Stats aren't done yet**
-
-3. List users who paid
-
-	- listpaid should be owner/smuggler only. DMs a full list of students who paid their dues to simplify distribution. Also display the total amount of people at the bottom, for simplified buying.
 
 ## Commands list
 
+Yea
 	- /connect
-	- /pay
-	- /finish
-	- /check
-	- /stats
-	- /listpaid
+	- /pay @user amount
+	- /check @user
+	- /stats (list serverwide total money raised)
+	- /list (list who paid more than $2)
+	- /leaderboard
