@@ -36,7 +36,7 @@ class payments(commands.Cog, name="Donations"):
     )
 
     async def connect(self, ctx: Context):
-        if account_is_open(ctx.author):  # checks if user data exists
+        if await account_is_open(ctx.author):  # checks if user data exists
             await ctx.reply("You are already connected!")
         else:
             await ctx.reply(
@@ -52,7 +52,7 @@ class payments(commands.Cog, name="Donations"):
                 await ctx.reply("Adding \"" + grade + "\" to your file.")
 
             finally:
-                create_account(ctx.author, name, grade)
+                await create_account(ctx.author, name, grade)
                 await ctx.reply("Connection complete. You are good to go!")
 
     @commands.command(
@@ -66,7 +66,7 @@ class payments(commands.Cog, name="Donations"):
         em = disnake.Embed(
             color=disnake.Color.red())
         if await is_connected(member):  # checks if user data exists
-            em.add_field(f'Paid <@!{target}> ${amount}')
+            em.add_field(name = "Money Moment", value = f'Paid <@!{target}> ${amount}')
             await ctx.reply(embed=em)
 
             stats = await load_stats()

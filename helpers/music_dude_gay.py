@@ -16,5 +16,3 @@ async def get_user_data():
         #users = json.load(f)'''
     with open('stats.json') as file:
         return json.load(file)["users"]
-
-    return users

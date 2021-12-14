@@ -1,7 +1,7 @@
 import json
 
 
-def load_config():
+async def load_config():
     with open("stats.json") as file:
         return json.load(file)
 
@@ -20,8 +20,8 @@ def load_users() -> dict:
         return json.load(file)["users"]
 
 
-def create_account(user, name, grade):
-    stats = load_stats()
+async def create_account(user, name, grade):
+    stats = await load_stats()
 
     stats['users'][user.id] = {
         "grade": grade,
@@ -34,7 +34,7 @@ def create_account(user, name, grade):
         json.dump(stats, f)
 
 
-def account_is_open(user):
+async def account_is_open(user):
     return (str(user.id) in load_users())
 
 '''
