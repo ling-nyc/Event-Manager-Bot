@@ -72,7 +72,7 @@ class payments(commands.Cog, name="Donations"):
             stats = await load_stats()
             initial = stats['users'][str(target)]['paid']
             stats['users'][str(target)]['paid'] = {
-                int(initial) + int(amount),
+                int(initial) + int(amount)
             }
 
             with open('stats.json', 'w') as f:
