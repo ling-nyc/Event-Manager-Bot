@@ -7,6 +7,7 @@ from disnake.ext.commands import Context
 
 from helpers import checks
 from helpers.json_manager import account_is_open, load_users
+from helpers.music_dude_gay import is_connected
 
 
 async def open_account(user):
@@ -41,7 +42,7 @@ class stats(commands.Cog, name="Statistics"):
     )
     async def check(self, ctx: Context, member: disnake.User):
         target = member.id
-        if account_is_open(member):  # checks if user data exists
+        if await is_connected(member):  # checks if user data exists
             users = load_users()
             user = users[str(target)]
 
