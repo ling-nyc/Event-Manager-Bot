@@ -59,7 +59,7 @@ class payments(commands.Cog, name="Donations"):
         name="pay",
         description="Confirm a payment.",
     )
-
+    # Using pay currently breaks the json
     async def pay(self, ctx, member: disnake.User, amount):
         target = member.id
         users = await get_user_data()
