@@ -1,19 +1,18 @@
 import json
 
 
-def load_config() -> dict:
+def load_config():
     with open("stats.json") as file:
         return json.load(file)
 
+def load_blacklist():
+    #blacklist removed but dont wanna remove all the checks in the code for blacklist
+    pass
 
-def load_stats() -> dict:
+async def load_stats():
     with open('stats.json') as file:
         return json.load(file)
 
-
-def load_blacklist() -> list:
-    with open("stats.json") as file:
-        return json.load(file)["blacklist"]
 
 
 def load_users() -> dict:
@@ -38,7 +37,7 @@ def create_account(user, name, grade):
 def account_is_open(user):
     return (str(user.id) in load_users())
 
-
+'''
 def add_user_to_blacklist(user_id: str):
     stats = load_stats()
     stats['blacklist'].append(user_id)
@@ -53,3 +52,4 @@ def remove_user_from_blacklist(user_id: str):
 
     with open("stats.json", "w") as file:
         json.dump(stats, file, indent=4)
+'''

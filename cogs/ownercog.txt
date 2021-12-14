@@ -1,4 +1,4 @@
-import disnake
+'''import disnake
 from disnake import ApplicationCommandInteraction, Option, OptionType
 from disnake.ext import commands
 from disnake.ext.commands import Context
@@ -308,3 +308,6 @@ class Owner(commands.Cog, name="owner"):
 
 def setup(bot):
     bot.add_cog(Owner(bot))
+'''
+
+#Disabled because kinda useless tbh

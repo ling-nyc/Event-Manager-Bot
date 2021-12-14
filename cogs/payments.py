@@ -8,10 +8,10 @@ from disnake import ApplicationCommandInteraction
 from disnake.ext import commands
 from disnake.ext.commands import Context
 
-from helpers import checks, json_manager
 
 # Here we name the cog and create a new class for the cog.
-from helpers.json_manager import load_config, account_is_open, create_account
+from helpers.json_manager import load_config, account_is_open, create_account, load_stats
+from helpers.music_dude_gay import get_user_data, is_connected
 
 
 class payments(commands.Cog, name="Donations"):
@@ -24,7 +24,7 @@ class payments(commands.Cog, name="Donations"):
         description="Register your account to prepare payments. You only need to do this once!",
     )
     # This will only allow non-blacklisted members to execute the command
-    @checks.not_blacklisted()
+
     # This will only allow owners of the bot to execute the command -> config.json
     async def connect(self, ctx: ApplicationCommandInteraction):
         # await ctx.reply(users) #debugging purposes
@@ -34,7 +34,7 @@ class payments(commands.Cog, name="Donations"):
         name="connect",
         description="Register your account to prepare payments. This is to allow us to keep track of things and manage stats.  You only need to do this once!",
     )
-    @checks.not_blacklisted()
+
     async def connect(self, ctx: Context):
         if account_is_open(ctx.author):  # checks if user data exists
             await ctx.reply("You are already connected!")
@@ -59,20 +59,29 @@ class payments(commands.Cog, name="Donations"):
         name="pay",
         description="Confirm a payment.",
     )
-    @checks.not_blacklisted()
-    async def pay(self, ctx, member: disnake.Member = None, amount):
+
+    async def pay(self, ctx, member: disnake.User, amount):
         target = member.id
-        users = await load_config()
-        if await account_is_open(member):  # checks if user data exists
-            await ctx.reply(
-                "<@!" + str(target) + "> \'s data isn't in the file yet. They need to connect their account first!")
+        users = await get_user_data()
+        em = disnake.Embed(
+            color=disnake.Color.red())
+        if await is_connected(member):  # checks if user data exists
+            em.add_field(f'Paid <@!{target}> ${amount}')
+            await ctx.reply(embed=em)
+
+            stats = await load_stats()
+            initial = stats['users'][str(target)]['paid']
+            stats['users'][str(target)]['paid'] = {
+                int(initial) + int(amount),
+            }
+
+            with open('stats.json', 'w') as f:
+                json.dump(stats, f)
         else:
-            print(users)  # debugging
-        users = await load_config()
 
-        await ctx.reply(f'Paid {target} ${amount}.')
+            await ctx.reply("<@!" + str(member.id) + "> \'s data isn't in the file yet. They need to connect their account first!")
 
-        users[str(target)]["paid"] += amount
+
 
 
 # Load cog

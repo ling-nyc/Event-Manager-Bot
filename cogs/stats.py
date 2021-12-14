@@ -30,7 +30,6 @@ class stats(commands.Cog, name="Statistics"):
         description="Check payment information.",
     )
     # This will only allow non-blacklisted members to execute the command
-    @checks.not_blacklisted()
     # This will only allow owners of the bot to execute the command -> config.json
     async def check(self, ctx: ApplicationCommandInteraction):
         # xd
@@ -40,12 +39,11 @@ class stats(commands.Cog, name="Statistics"):
         name="check",
         description="Check payment information.",
     )
-    @checks.not_blacklisted()
-    async def check(self, ctx: Context, member: disnake.Member):
+    async def check(self, ctx: Context, member: disnake.User):
         target = member.id
-        if account_is_open(target):  # checks if user data exists
+        if account_is_open(member):  # checks if user data exists
             users = load_users()
-            user = users[str(member.id)]
+            user = users[str(target)]
 
             em = disnake.Embed(
                 title=f'{member.name} \'s Stats', color=disnake.Color.red())
@@ -64,7 +62,7 @@ class stats(commands.Cog, name="Statistics"):
         name="stats",
         description="Check payment information serverwide",
     )
-    @checks.not_blacklisted()
+
     async def stats(self, ctx: Context):
         with open('stats.json') as file:
             json_input = json.load(file)

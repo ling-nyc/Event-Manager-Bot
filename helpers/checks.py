@@ -18,6 +18,9 @@ def is_owner():
 
 
 def not_blacklisted():
+    #disabled
+    pass
+'''
     async def predicate(ctx: commands.Context) -> bool:
         blacklist = load_blacklist()
 
@@ -27,3 +30,4 @@ def not_blacklisted():
         return True
 
     return commands.check(predicate)
+'''

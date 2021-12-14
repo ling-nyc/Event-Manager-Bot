@@ -37,7 +37,7 @@ class Template(commands.Cog, name="template"):
         description="This is a testing command that does nothing.",
     )
     # This will only allow non-blacklisted members to execute the command
-    @checks.not_blacklisted()
+   # @checks.not_blacklisted()
     # This will only allow owners of the bot to execute the command -> config.json
     @checks.is_owner()
     async def testcommand(self, interaction: ApplicationCommandInteraction):
@@ -54,7 +54,7 @@ class Template(commands.Cog, name="template"):
         name="testcommand",
         description="This is a testing command that does nothing.",
     )
-    @checks.not_blacklisted()
+  #  @checks.not_blacklisted()
     @checks.is_owner()
     async def testcommand(self, context: Context):
         """
