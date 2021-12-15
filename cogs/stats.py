@@ -7,7 +7,7 @@ from disnake.ext.commands import Context
 
 from helpers import checks
 from helpers.json_manager import account_is_open, load_users
-from helpers.music_dude_gay import is_connected
+from helpers.music_dude_gay import is_connected, get_user_data
 
 
 async def open_account(user):
@@ -74,6 +74,35 @@ class stats(commands.Cog, name="Statistics"):
             title="Overall Server Stats", color=disnake.Color.red())
         em.add_field(name="Total Amount Raised", value="$" + str(sum))
         await ctx.reply(embed=em)
+
+    @commands.command(aliases=["lb"])
+    async def leaderboard(self, ctx, x=1):
+        users = await get_user_data()
+        leader_board = {}
+        total = []
+        for user in users:
+            name = int(user)
+            total_amount = users[user]["paid"]
+            leader_board[total_amount] = name
+            total.append(total_amount)
+
+        total = sorted(total, reverse=True)
+
+        em = disnake.Embed(title=f"Top {x} Donators",
+                           description="damn should have paid me instead :(",
+                           color=disnake.Color.red())
+        index = 1
+        for amt in total:
+            id_ = leader_board[amt]
+            member = self.bot.get_user(id_)
+            name = member.name
+            em.add_field(name=f"{index}. {name}", value=f"{amt}", inline=False)
+            if index == x:
+                break
+            else:
+                index += 1
+
+        await ctx.send(embed=em)
 
 
 
