@@ -36,6 +36,7 @@ class payments(commands.Cog, name="Donations"):
     )
 
     async def connect(self, ctx: Context):
+        grades = ["freshman", "sophomore", "junior", "senior"]
         if await account_is_open(ctx.author):  # checks if user data exists
             await ctx.reply("You are already connected!")
         else:
@@ -49,8 +50,11 @@ class payments(commands.Cog, name="Donations"):
 
                 msg2 = await self.bot.wait_for("message", check=(lambda m: m.author.id == ctx.author.id))
                 grade = msg2.content.lower()
+                while grade not in grades: #check if grade is valid
+                    await ctx.reply("You inputted an invalid grade, please try again. Accepted values are: `freshman, sophomore, junior, and senior`.")
+                    msg2 = await self.bot.wait_for("message", check=(lambda m: m.author.id == ctx.author.id))
+                    grade = msg2.content.lower()
                 await ctx.reply("Adding \"" + grade + "\" to your file.")
-
             finally:
                 await create_account(ctx.author, name, grade)
                 await ctx.reply("Connection complete. You are good to go!")

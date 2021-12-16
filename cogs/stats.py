@@ -57,7 +57,7 @@ class stats(commands.Cog, name="Statistics"):
             await ctx.reply(embed=em)
 
         else:
-            await ctx.reply("Your account isn't connected yet! Use the `connect` command to register.")
+            await ctx.reply(f"<@!{member.id}>'s account isn't connected yet! Use the `connect` command to register.")
 
     @commands.command(
         name="stats",
