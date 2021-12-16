@@ -1,9 +1,10 @@
 ## Everything is done pretty much. Theres some left though:
 
-1. Lock the $pay and $list to only people with `smuggler: "True"` in their jsons, along with server admins.
+1. ~~Lock the $pay and $list to only people with `smuggler: "True"` in their jsons, along with server admins.~~ **DONE**
 2. Add a command to allow the editing of user info
-3. Roll into production owo
-4. (optional) add a field to $check where it displays past donations (not in the current event, Ex: They paid $15 during maid revolution, and $2 during santa, rn it will display Paid: $2 Total: $17)
+3. $listpaid command **JORDAN YOU BETTER FUCKING**
+4. ~~Roll into production owo~~ **DONE**
+5. (optional) add a field to $check where it displays past donations (not in the current event, Ex: They paid $15 during maid revolution, and $2 during santa, rn it will display Paid: $2 Total: $17)
 
 ## Ideas for the future:
 
