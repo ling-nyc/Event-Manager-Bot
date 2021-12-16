@@ -65,21 +65,24 @@ class payments(commands.Cog, name="Donations"):
         users = await get_user_data()
         em = disnake.Embed(
             color=disnake.Color.red())
-        if await is_connected(member):  # checks if user data exists
-            em.add_field(name = "Money Moment", value = f'Paid <@!{target}> ${amount}')
-            await ctx.reply(embed=em)
+        role = disnake.utils.find(lambda r: r.name == 'Smuggler', ctx.message.guild.roles)
+        if role in ctx.author.roles:
+            if await is_connected(member):  # checks if user data exists
+                em.add_field(name = "Money Moment", value = f'Paid <@!{target}> ${amount}')
+                await ctx.reply(embed=em)
 
-            stats = await load_stats()
-            initial = stats['users'][str(target)]['paid']
-            stats['users'][str(target)]['paid'] = int(initial) + int(amount)
+                stats = await load_stats()
+                initial = stats['users'][str(target)]['paid']
+                stats['users'][str(target)]['paid'] = int(initial) + int(amount)
 
 
-            with open('stats.json', 'w') as f:
-                json.dump(stats, f)
+                with open('stats.json', 'w') as f:
+                    json.dump(stats, f)
+            else:
+
+                await ctx.reply("<@!" + str(member.id) + "> \'s data isn't in the file yet. They need to connect their account first!")
         else:
-
-            await ctx.reply("<@!" + str(member.id) + "> \'s data isn't in the file yet. They need to connect their account first!")
-
+            await ctx.reply("{} is not a smuggler.".format(ctx.author))
 
 
 

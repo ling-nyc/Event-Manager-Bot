@@ -15,7 +15,8 @@ class Info(commands.Cog):
         embedvar.add_field(name='$check @user', value='To check your own information', inline=False)
         embedvar.add_field(name='$connect', value='To add your data to the bot files, run this first.', inline=False)
         embedvar.add_field(name='$pay @user', value='Only for event managers and smugglers. Add money to a user\'s account.', inline=False)
-        embedvar.add_field(name='$listpaid', value='Only for event managers and smugglers. Get a full list of people who paid.', inline=False)
+        embedvar.add_field(name='$listpaid {min amount}', value='Only for event managers and smugglers. Get a full list of people who paid. **NOT FINISHED SMH JORDAN**', inline=False)
+        embedvar.add_field(name='$leaderboard', value='Leaderboard of people who paid. If you\'re on it you\'re cool.', inline=False)
 
         await ctx.send(embed=embedvar)
 
