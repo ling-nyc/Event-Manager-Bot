@@ -40,11 +40,13 @@ class stats(commands.Cog, name="Statistics"):
         name="check",
         description="Check payment information.",
     )
-    async def check(self, ctx: Context, member: disnake.User):
-        target = member.id
+    async def check(self, ctx: Context, member: disnake.User = None):
+        if member is None:
+            member = ctx.author
+
         if await is_connected(member):  # checks if user data exists
             users = load_users()
-            user = users[str(target)]
+            user = users[str(member.id)]
 
             em = disnake.Embed(
                 title=f'{member.name} \'s Stats', color=disnake.Color.red())
